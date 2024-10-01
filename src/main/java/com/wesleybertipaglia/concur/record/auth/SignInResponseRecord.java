@@ -1,4 +1,4 @@
-package com.wesleybertipaglia.concur.record;
+package com.wesleybertipaglia.concur.record.auth;
 
 import java.time.Instant;
 

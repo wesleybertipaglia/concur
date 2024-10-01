@@ -1,5 +1,6 @@
 package com.wesleybertipaglia.concur.service;
 
+import java.util.UUID;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wesleybertipaglia.concur.model.User;
-import com.wesleybertipaglia.concur.record.SignInRequestRecord;
-import com.wesleybertipaglia.concur.record.SignInResponseRecord;
-import com.wesleybertipaglia.concur.record.SignUpRequestRecord;
+import com.wesleybertipaglia.concur.record.auth.SignInRequestRecord;
+import com.wesleybertipaglia.concur.record.auth.SignInResponseRecord;
+import com.wesleybertipaglia.concur.record.auth.SignUpRequestRecord;
 import com.wesleybertipaglia.concur.repository.UserRepository;
 
 @Service
@@ -39,9 +40,12 @@ public class AuthService {
             throw new RuntimeException("Email already taken");
         }
 
-        User user = new User();
-        user.setUsername(signUpRequest.username());
-        user.setPassword(passwordEncoder.encode(signUpRequest.password()));
+        User user = new User(
+                UUID.randomUUID().toString(),
+                signUpRequest.name(),
+                signUpRequest.username(),
+                signUpRequest.email(),
+                signUpRequest.password());
 
         userRepository.save(user);
     }

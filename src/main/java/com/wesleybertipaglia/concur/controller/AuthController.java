@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wesleybertipaglia.concur.record.SignInRequestRecord;
-import com.wesleybertipaglia.concur.record.SignInResponseRecord;
-import com.wesleybertipaglia.concur.record.SignUpRequestRecord;
+import com.wesleybertipaglia.concur.record.auth.SignInRequestRecord;
+import com.wesleybertipaglia.concur.record.auth.SignInResponseRecord;
+import com.wesleybertipaglia.concur.record.auth.SignUpRequestRecord;
 import com.wesleybertipaglia.concur.service.AuthService;
 
 import jakarta.validation.Valid;

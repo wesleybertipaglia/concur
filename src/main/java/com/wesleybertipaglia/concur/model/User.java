@@ -1,7 +1,6 @@
 package com.wesleybertipaglia.concur.model;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -9,27 +8,33 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "users")
 public class User {
 
     @Id
-    private UUID id = UUID.randomUUID();
+    private String id;
 
+    @NotEmpty(message = "Name is required")
     private String name;
 
     @Indexed(unique = true)
+    @NotEmpty(message = "Username is required")
     private String username;
 
     @Indexed(unique = true)
+    @Email(message = "Email should be valid")
     private String email;
 
+    @NotEmpty(message = "Password is required")
     private String password;
 
     @CreatedDate
@@ -37,5 +42,13 @@ public class User {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public User(String id, String name, String username, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
 }
