@@ -1,6 +1,5 @@
 package com.wesleybertipaglia.concur.service;
 
-import java.util.UUID;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -40,12 +39,12 @@ public class AuthService {
             throw new RuntimeException("Email already taken");
         }
 
-        User user = new User(
-                UUID.randomUUID().toString(),
-                signUpRequest.name(),
-                signUpRequest.username(),
-                signUpRequest.email(),
-                signUpRequest.password());
+        User user = User.builder()
+                .name(signUpRequest.name())
+                .username(signUpRequest.username())
+                .email(signUpRequest.email())
+                .password(passwordEncoder.encode(signUpRequest.password()))
+                .build();
 
         userRepository.save(user);
     }

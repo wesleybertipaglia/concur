@@ -11,9 +11,9 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
+@Builder
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "threads")
@@ -36,12 +36,5 @@ public class Thread {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    public Thread(String id, String title, String content, User user) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.user = user;
-    }
 
 }

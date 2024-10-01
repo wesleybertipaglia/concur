@@ -12,9 +12,9 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
+@Builder
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "users")
@@ -42,13 +42,5 @@ public class User {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    public User(String id, String name, String username, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
 }

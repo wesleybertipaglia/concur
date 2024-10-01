@@ -19,7 +19,6 @@ import com.wesleybertipaglia.concur.repository.ThreadRepository;
 import com.wesleybertipaglia.concur.repository.UserRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ThreadService {
@@ -53,7 +52,11 @@ public class ThreadService {
     public Optional<ThreadResponseRecord> createThread(ThreadRequestRecord threadRequest,
             Authentication authentication) {
         User user = getUserFromAuthentication(authentication);
-        Thread thread = new Thread(UUID.randomUUID().toString(), threadRequest.title(), threadRequest.content(), user);
+        Thread thread = Thread.builder()
+                .title(threadRequest.title())
+                .content(threadRequest.content())
+                .user(user)
+                .build();
 
         Thread savedThread = threadRepository.save(thread);
         return Optional.of(mapToResponseRecord(savedThread));
