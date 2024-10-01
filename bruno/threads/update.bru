@@ -1,0 +1,22 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/threads/b78d5d70-677f-4ccc-bd0f-cd69331f5e58
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "title": "Chocolate Cake Receipe",
+    "content": "How to make a cake and put some chocolate in this?"
+  }
+}

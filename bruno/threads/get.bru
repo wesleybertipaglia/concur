@@ -1,0 +1,15 @@
+meta {
+  name: get
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/threads/id
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
