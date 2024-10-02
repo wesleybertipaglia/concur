@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Concur</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+            background-color: #f7f7f7;
+            color: #1a2e44;
+            padding: 4rem;
+        }
+
+        * {
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 0.5rem;
+            border: solid 0.5px #dddddd90;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            background-color: #4c83ee;
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-sm {
+            font-size: 0.6rem;
+        }
+
+        section {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .w-50 {
+            width: 50%;
+        }
+
+        .border-t {
+            border-top: solid 0.5px #ddd;
+        }
+
+        footer {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            color: #818181;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section>
+            <div>
+                <h1>Welcome, <span th:text="${user.name}"></span>!</h1>
+                <p>Thank you for signing up for Concur.</p>
+                <p>Verify your email address by clicking the button below:</p>
+            </div>
+
+            <div class="text-center">
+                <a class="button" th:href="@{${verificationLink}}" th:text="'Confirm my account'">Confirm my account</a>
+            </div>
+
+            <div>
+                <p>Note that unverified accounts are automatically deleted 30 days after signup.</p>
+                <p>If you didn't request this, please ignore this email.</p>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="w-50 border-t">
+                <p style="margin-top: 1rem;">Sincerely,</p>
+                <p style="font-weight: 800; font-size: 0.75rem; margin-bottom: 0.25rem;">
+                    The Concur Team
+                </p>
+                <a href="/" class="text-sm">
+                    support@concur.com
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Concur Forum</p>
+        <p>Somewhere arround the globe.</p>
+        <p>Earth</p>
+    </footer>
+</body>
+
+</html>

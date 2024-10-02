@@ -10,11 +10,14 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.wesleybertipaglia.concur.model.User;
 import com.wesleybertipaglia.concur.record.auth.SignInRequestRecord;
 import com.wesleybertipaglia.concur.record.auth.SignInResponseRecord;
 import com.wesleybertipaglia.concur.record.auth.SignUpRequestRecord;
+import com.wesleybertipaglia.concur.record.email.EmailRecord;
 import com.wesleybertipaglia.concur.repository.UserRepository;
 
 @Service
@@ -28,6 +31,12 @@ public class AuthService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private SpringTemplateEngine templateEngine;
 
     @Transactional
     public void signUp(SignUpRequestRecord signUpRequest) {
@@ -46,7 +55,11 @@ public class AuthService {
                 .password(passwordEncoder.encode(signUpRequest.password()))
                 .build();
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        if (savedUser.getId() != null) {
+            sendSignUpEmail(savedUser);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -78,5 +91,17 @@ public class AuthService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to create JWT token", e);
         }
+    }
+
+    private void sendSignUpEmail(User user) {
+        String emailSubject = "Welcome to Concur";
+
+        Context context = new Context();
+        context.setVariable("user", user);
+        context.setVariable("verificationLink", "your_verification_link_here");
+
+        EmailRecord email = new EmailRecord(user.getEmail(), emailSubject, "");
+        String htmlContent = templateEngine.process("email/signup-email", context);
+        emailService.sendMail(email, htmlContent);
     }
 }
